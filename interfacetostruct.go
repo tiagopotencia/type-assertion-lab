@@ -16,6 +16,7 @@ func main() {
 	var interfaceToBeConverted interface{}
 	var interfaceToBeConvertedWithAnonymousStruct interface{}
 	var interfaceToBeConvertedWithNil interface{} = nil
+	var interfaceToBeConvertedWithNilConvertedToAPointer interface{}
 
 	strc := structResult{name:"tp", age:23}
 
@@ -29,10 +30,14 @@ func main() {
 		age: 2,
 	}
 
+	var structResultPointer *structResult
+	interfaceToBeConvertedWithNilConvertedToAPointer = structResultPointer
+
 	convertedInterface := convertInterfaceToStruct(interfaceToBeConverted)
 	convertedInterfaceToStruct2 := convertInterfaceToStruct2(interfaceToBeConverted)
 	convertedInterfaceToAonymousStruct := convertInterfaceToAnonymousStruct(interfaceToBeConvertedWithAnonymousStruct)
 	convertedInterfaceWithNil := convertInterfaceToStructWithNil(interfaceToBeConvertedWithNil)
+	convertedInterfaceToBeConvertedWithNilConvertedToAPointer := convertInterfaceToStructWithNilConvertedToAPointer(interfaceToBeConvertedWithNilConvertedToAPointer)
 
 	fmt.Printf("interfaceToBeConverted type -> %T\n", interfaceToBeConverted)
 	fmt.Println("interfaceToBeConverted -> ", interfaceToBeConverted)
@@ -44,6 +49,8 @@ func main() {
 	fmt.Println("convertedInterfaceToAonymousStruct ->", convertedInterfaceToAonymousStruct)
 	fmt.Printf("convertedInterfaceWithNil type -> %T\n", convertedInterfaceWithNil)
 	fmt.Println("convertedInterfaceWithNil ->", convertedInterfaceWithNil)
+	fmt.Printf("convertedInterfaceToBeConvertedWithNilConvertedToAPointer type -> %T\n", convertedInterfaceToBeConvertedWithNilConvertedToAPointer)
+	fmt.Println("convertedInterfaceToBeConvertedWithNilConvertedToAPointer ->", convertedInterfaceToBeConvertedWithNilConvertedToAPointer)
 }
 
 func convertInterfaceToStruct(interfaceToBeConverted interface{}) structResult{
@@ -80,4 +87,11 @@ func convertInterfaceToStructWithNil(interfaceToBeConverted interface{}) *struct
 	}
 
 	return &strct
+}
+
+func convertInterfaceToStructWithNilConvertedToAPointer(interfaceToBeConverted interface{}) *structResult{
+	var strct *structResult
+	strct = interfaceToBeConverted.(*structResult)
+
+	return strct
 }
