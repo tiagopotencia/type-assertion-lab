@@ -82,8 +82,13 @@ func convertInterfaceToStructWithNil(interfaceToBeConverted interface{}) *struct
 	strct := structResult{}
 	strct, ok := interfaceToBeConverted.(structResult)
 
+	//The type assertion failed but it doesn't means that interfaceToBeConverted is nil
 	if ok == false{
-		return nil
+		if interfaceToBeConverted == nil{
+			return nil
+		} else {
+			panic("I don't know what type to assert!! :(")
+		}
 	}
 
 	return &strct
