@@ -15,6 +15,7 @@ type struct2 struct {
 func main() {
 	var interfaceToBeConverted interface{}
 	var interfaceToBeConvertedWithAnonymousStruct interface{}
+	var interfaceToBeConvertedWithNil interface{} = nil
 
 	strc := structResult{name:"tp", age:23}
 
@@ -31,6 +32,7 @@ func main() {
 	convertedInterface := convertInterfaceToStruct(interfaceToBeConverted)
 	convertedInterfaceToStruct2 := convertInterfaceToStruct2(interfaceToBeConverted)
 	convertedInterfaceToAonymousStruct := convertInterfaceToAnonymousStruct(interfaceToBeConvertedWithAnonymousStruct)
+	convertedInterfaceWithNil := convertInterfaceToStructWithNil(interfaceToBeConvertedWithNil)
 
 	fmt.Printf("interfaceToBeConverted type -> %T\n", interfaceToBeConverted)
 	fmt.Println("interfaceToBeConverted -> ", interfaceToBeConverted)
@@ -40,6 +42,8 @@ func main() {
 	fmt.Println("convertedInterfaceToStruct2 ->", convertedInterfaceToStruct2)
 	fmt.Printf("convertedInterfaceToAonymousStruct type -> %T\n", convertedInterfaceToAonymousStruct)
 	fmt.Println("convertedInterfaceToAonymousStruct ->", convertedInterfaceToAonymousStruct)
+	fmt.Printf("convertedInterfaceWithNil type -> %T\n", convertedInterfaceWithNil)
+	fmt.Println("convertedInterfaceWithNil ->", convertedInterfaceWithNil)
 }
 
 func convertInterfaceToStruct(interfaceToBeConverted interface{}) structResult{
@@ -65,4 +69,15 @@ func convertInterfaceToAnonymousStruct(interfaceToBeConverted interface{}) struc
 	})
 
 	return strct
+}
+
+func convertInterfaceToStructWithNil(interfaceToBeConverted interface{}) *structResult{
+	strct := structResult{}
+	strct, ok := interfaceToBeConverted.(structResult)
+
+	if ok == false{
+		return nil
+	}
+
+	return &strct
 }
